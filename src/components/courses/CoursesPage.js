@@ -10,23 +10,35 @@ import React from "react";
 // export default CoursesPage;
 
 class CoursesPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      course: {
-        title: "",
-      },
-    };
-  }
+  state = {
+    course: {
+      title: "",
+    },
 
-  handleChange(event) {
+    //bind the handleChange inside the constructor
+    //this.handleChange = this.handleChange.bind(this);
+  };
+
+  // handleChange(event) {
+  //   const course = { ...this.state.course, title: event.target.value };
+  //   this.setState({ course: course });
+  //   console.log(course);
+  // }
+  //using arrow function no need to bind
+  handleChange = (event) => {
     const course = { ...this.state.course, title: event.target.value };
     this.setState({ course: course });
-  }
+    //console.log(course);
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    alert(this.state.course.title);
+  };
 
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <h2>Courses</h2>
         <h3>Add Course</h3>
         <input
