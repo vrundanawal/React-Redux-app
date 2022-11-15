@@ -1,30 +1,15 @@
 import React from "react";
-
-// const CoursesPage = () => {
-//  const course = {
-//   title : ''
-//  }
-//   return <h2>Courses---Functional component</h2>;
-// };
-
-// export default CoursesPage;
+import { connect } from "react-redux";
+import * as courseActions from "../../redux/actions/courseActions";
+import PropTypes from "prop-types";
 
 class CoursesPage extends React.Component {
   state = {
     course: {
       title: "",
     },
-
-    //bind the handleChange inside the constructor
-    //this.handleChange = this.handleChange.bind(this);
   };
 
-  // handleChange(event) {
-  //   const course = { ...this.state.course, title: event.target.value };
-  //   this.setState({ course: course });
-  //   console.log(course);
-  // }
-  //using arrow function no need to bind
   handleChange = (event) => {
     const course = { ...this.state.course, title: event.target.value };
     this.setState({ course: course });
@@ -33,7 +18,8 @@ class CoursesPage extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    alert(this.state.course.title);
+    this.props.dispatch(courseActions.createCourse(this.state.course));
+    //alert(this.state.course.title);
   };
 
   render() {
@@ -51,4 +37,15 @@ class CoursesPage extends React.Component {
     );
   }
 }
-export default CoursesPage;
+//Proptypes
+CoursesPage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+//This function determines what state is passed to our component via props
+function mapStateToProps(state) {
+  return {
+    courses: state.courses,
+  };
+}
+
+export default connect(mapStateToProps)(CoursesPage);
