@@ -18,6 +18,8 @@ class CoursesPage extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log(this.state.course);
+
     this.props.dispatch(courseActions.createCourse(this.state.course));
     //alert(this.state.course.title);
   };
@@ -33,12 +35,17 @@ class CoursesPage extends React.Component {
           onChange={this.handleChange}
         />
         <input type="submit" value="Save" />
+        {/* <pre>{JSON.stringify(this.props.courses)}</pre> */}
+        {this.props.courses.map((course) => (
+          <div key={course.title}>{course.title}</div>
+        ))}
       </form>
     );
   }
 }
 //Proptypes
 CoursesPage.propTypes = {
+  courses: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 //This function determines what state is passed to our component via props
