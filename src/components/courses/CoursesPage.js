@@ -25,6 +25,12 @@ class CoursesPage extends React.Component {
   //   //alert(this.state.course.title);
   // };
 
+  componentDidMount() {
+    this.props.actions.loadCourses().catch((error) => {
+      alert("Loading courses failed" + error);
+    });
+  }
+
   render() {
     return (
       // <form onSubmit={this.handleSubmit}>

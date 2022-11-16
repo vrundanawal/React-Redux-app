@@ -6,7 +6,7 @@ export function createCourse(course) {
 }
 
 export function loadCourseSuccess(courses) {
-  return { types: types.LOAD_COURSES_SUCCESS, courses: courses };
+  return { type: types.LOAD_COURSES_SUCCESS, courses: courses };
 }
 
 //thunks used for load courses with async call
