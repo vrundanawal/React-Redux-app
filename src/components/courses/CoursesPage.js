@@ -20,7 +20,7 @@ class CoursesPage extends React.Component {
     e.preventDefault();
     console.log(this.state.course);
 
-    this.props.dispatch(courseActions.createCourse(this.state.course));
+    this.props.createCourse(this.state.course);
     //alert(this.state.course.title);
   };
 
@@ -46,7 +46,7 @@ class CoursesPage extends React.Component {
 //Proptypes
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  createCourse: PropTypes.func.isRequired,
 };
 //This function determines what state is passed to our component via props
 function mapStateToProps(state) {
@@ -55,4 +55,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(CoursesPage);
+function mapDispatchToProps(dispatch) {
+  return {
+    createCourse: (course) => dispatch(courseActions.createCourse(course)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
