@@ -5,42 +5,44 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 
 class CoursesPage extends React.Component {
-  state = {
-    course: {
-      title: "",
-    },
-  };
+  // state = {
+  //   course: {
+  //     title: "",
+  //   },
+  // };
 
-  handleChange = (event) => {
-    const course = { ...this.state.course, title: event.target.value };
-    this.setState({ course: course });
-    //console.log(course);
-  };
+  // handleChange = (event) => {
+  //   const course = { ...this.state.course, title: event.target.value };
+  //   this.setState({ course: course });
+  //   //console.log(course);
+  // };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state.course);
+  // handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(this.state.course);
 
-    this.props.actions.createCourse(this.state.course);
-    //alert(this.state.course.title);
-  };
+  //   this.props.actions.createCourse(this.state.course);
+  //   //alert(this.state.course.title);
+  // };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      // <form onSubmit={this.handleSubmit}>
+      <>
         <h2>Courses</h2>
-        <h3>Add Course</h3>
+        {/* <h3>Add Course</h3>
         <input
           type="text"
           value={this.state.course.title}
           onChange={this.handleChange}
         />
-        <input type="submit" value="Save" />
+        <input type="submit" value="Save" /> */}
         {/* <pre>{JSON.stringify(this.props.courses)}</pre> */}
         {this.props.courses.map((course) => (
           <div key={course.title}>{course.title}</div>
         ))}
-      </form>
+        {/* </form> */}
+      </>
     );
   }
 }
@@ -60,7 +62,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     //createCourse: (course) => dispatch(courseActions.createCourse(course)),
-    actions: bindActionCreators(courseActions, dispatch),  //mapDispatchToProps with bindActionCreators
+    actions: bindActionCreators(courseActions, dispatch), //mapDispatchToProps with bindActionCreators
   };
 }
 
