@@ -8,8 +8,14 @@ import CourseList from "./CourseList";
 
 class CoursesPage extends React.Component {
   componentDidMount() {
+    //for loading the courses
     this.props.actions.loadCourses().catch((error) => {
       alert("Loading courses failed" + error);
+    });
+
+    //for loading the authors
+    this.props.actions.loadAuthors().catch((error) => {
+      alert("Loading authors failed" + error);
     });
   }
 
