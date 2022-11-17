@@ -8,15 +8,21 @@ import CourseList from "./CourseList";
 
 class CoursesPage extends React.Component {
   componentDidMount() {
-    //for loading the courses
-    this.props.actions.loadCourses().catch((error) => {
-      alert("Loading courses failed" + error);
-    });
+    //destructuring
+    const { courses, authors, actions } = this.props;
+    if (courses.length === 0) {
+      //for loading the courses
+      actions.loadCourses().catch((error) => {
+        alert("Loading courses failed" + error);
+      });
+    }
 
-    //for loading the authors
-    this.props.actions.loadAuthors().catch((error) => {
-      alert("Loading authors failed" + error);
-    });
+    if (authors.length === 0) {
+      //for loading the authors
+      actions.loadAuthors().catch((error) => {
+        alert("Loading authors failed" + error);
+      });
+    }
   }
 
   render() {
@@ -30,6 +36,7 @@ class CoursesPage extends React.Component {
 }
 //Proptypes
 CoursesPage.propTypes = {
+  authors: PropTypes.array.isRequired,
   courses: PropTypes.array.isRequired,
   //createCourse: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired,
@@ -37,7 +44,19 @@ CoursesPage.propTypes = {
 //This function determines what state is passed to our component via props
 function mapStateToProps(state) {
   return {
-    courses: state.courses,
+    //courses: state.courses,
+    //add the authors name to each course
+    courses:
+      state.authors.length === 0
+        ? []
+        : state.courses.map((course) => {
+            return {
+              ...course,
+              authorName: state.authors.find((a) => a.id === course.authorId)
+                .name,
+            };
+          }),
+    authors: state.authors,
   };
 }
 
