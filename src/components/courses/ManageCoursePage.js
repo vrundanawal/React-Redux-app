@@ -15,6 +15,7 @@ function ManageCoursePage({
 }) {
   //destructuring
   // const { courses, authors, loadCourses, loadAuthors }  = props;
+
   const [course, setCourse] = useState({ ...props.course });
   const [errors, setErrors] = useState({});
   useEffect(() => {
@@ -31,7 +32,23 @@ function ManageCoursePage({
       });
     }
   }, []);
-  return <CourseForm course={course} errors={errors} authors={authors} />;
+  //handle change on input
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setCourse((prevCourse) => ({
+      ...prevCourse,
+      [name]: name === "authorId" ? parseInt(value, 10) : value,
+    }));
+  }
+
+  return (
+    <CourseForm
+      course={course}
+      errors={errors}
+      authors={authors}
+      onChange={handleChange}
+    />
+  );
 }
 
 //Proptypes
