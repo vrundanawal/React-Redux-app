@@ -12,6 +12,7 @@ function ManageCoursePage({
   loadCourses,
   loadAuthors,
   saveCourse,
+  history, //pass the history as a props
   ...props
 }) {
   //destructuring
@@ -44,7 +45,9 @@ function ManageCoursePage({
 
   function handleSave(event) {
     event.preventDefault();
-    saveCourse(course);
+    saveCourse(course).then(() => {
+      history.pushState("/courses");
+    });
   }
 
   return (
@@ -66,6 +69,7 @@ ManageCoursePage.propTypes = {
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
   saveCourse: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 //This function determines what state is passed to our component via props
 function mapStateToProps(state) {
